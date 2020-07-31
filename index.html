@@ -4,10 +4,87 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>WKP5</title>
+		<style>
+
+			.container {
+				max-width: 50%;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-column-gap: 16px;
+				column-gap: 16px;
+			}
+
+			.container > div {
+				border: 2px solid navy;
+				border-radius: 10px;
+				background-color: gainsboro;
+			}
+
+			.container > div > *:not(button) {
+				padding-inline-start: 32px;
+				padding-inline-end: 32px;
+			}
+
+			img {
+				max-width: 100%;
+				border-radius: 10px;
+			}
+
+			ul {
+				list-style: none;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				padding: 0;
+			}
+
+			/* .more-button {
+				background-color: cornflowerblue;
+				padding: 8px;
+				border-radius: 10px;
+				transform: translate(100%);
+				margin-block-end: 16px;
+			} */
+
+			.generate {
+				margin-block-start: 32px;
+			}
+
+			.outer-modal {
+				display: grid;
+				place-items: center center;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background-color: hsla(0, 0%, 0%, 0.7);
+				pointer-events: none;
+				opacity: 0;
+			}
+
+			.outer-modal.open {
+				pointer-events: all;
+				opacity: 1;
+			}
+
+			.inner-modal {
+				background-color: gainsboro;
+				min-width: 400px;
+				min-height: 400px;
+			}
+
+}
+		</style>
 	</head>
 	<body>
 		<div class="container"></div>
 		<button class="generate">GENERATE RECIPES</button>
+		<div class="outer-modal">
+			<div class="inner-modal">
+
+			</div>
+		</div>
 	</body>
 	<script src="script.js"></script>
 </html>
