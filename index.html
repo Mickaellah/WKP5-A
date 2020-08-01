@@ -7,7 +7,7 @@
 		<style>
 
 			.container {
-				max-width: 50%;
+				/* max-width: 50%; */
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
 				grid-column-gap: 16px;
@@ -38,13 +38,13 @@
 				padding: 0;
 			}
 
-			/* .more-button {
+			.more-button {
 				background-color: cornflowerblue;
 				padding: 8px;
 				border-radius: 10px;
-				transform: translate(100%);
-				margin-block-end: 16px;
-			} */
+				width: 90%;
+				margin: 8px;
+			}
 
 			.generate {
 				margin-block-start: 32px;
@@ -58,7 +58,7 @@
 				left: 0;
 				width: 100vw;
 				height: 100vh;
-				background-color: hsla(0, 0%, 0%, 0.7);
+				background-color: hsla(0, 50%, 50%, 0.7);
 				pointer-events: none;
 				opacity: 0;
 			}
@@ -69,16 +69,22 @@
 			}
 
 			.inner-modal {
-				background-color: gainsboro;
+				background-color: azure;
 				min-width: 400px;
 				min-height: 400px;
 			}
 
-}
+			/* .navigation {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				grid-column-gap: 32px;
+				column-gap: 32px;
+			} */
+
 		</style>
 	</head>
 	<body>
-		<div class="container"></div>
+		<div class="container" data-id=""></div>
 		<button class="generate">GENERATE RECIPES</button>
 		<div class="outer-modal">
 			<div class="inner-modal">

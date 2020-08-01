@@ -3,8 +3,8 @@ console.log('HELLO');
 const recipes = [
 	{
 		title: 'Eggs',
-		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
+		picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRv7lZqNuZsM7rnmvPKin_EX06Ee-P-7rzivA&usqp=CAU',
+		author: 'Noellah',
 		difficulty: 'easy',
 		timing: '15',
 		ingredients: ['eggs', 'salt', 'water'],
@@ -17,32 +17,32 @@ const recipes = [
 		id: 1596168482053,
 	},
 	{
-		title: 'Fish',
-		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
-		ingredients: ['eggs', 'salt', 'water'],
+		title: 'Besisika',
+		picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS3HKoG_6HDe3QeY2q3w6Z7pizvaxD6m2vZdA&usqp=CAU',
+		author: 'Clopedia',
+		difficulty: 'Medium',
+		timing: '45',
+		ingredients: ['fish', 'salt', 'water', 'tomato', 'onion', 'oil'],
 		steps: [
-			'Put a pan on the fire',
-			'Crack the eggs on it',
-			'Wait, put them out',
-			'Add some salt on it',
+			'Prepare the fish',
+			'Wash and put in a pot with some salt',
+			'Put the pot on fire',
+			'Add sauce, oil, tomato, onion and other things like pepper.',
 		],
 		id: 1596168522409,
 	},
 	{
-		title: 'My recipe',
-		picture: 'https://bit.ly/2ZXyiKI',
-		author: 'Loïc',
-		difficulty: 'easy',
-		timing: '15',
-		ingredients: ['eggs', 'salt', 'water'],
+		title: 'Chicken',
+		picture: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS5w4K7M0vjhyLBG9V6Iktnd3GB1IhR627ueQ&usqp=CAU',
+		author: 'Miary',
+		difficulty: 'Difficult',
+		timing: '60',
+		ingredients: ['chicken', 'salt', 'water', 'oil', 'onion'],
 		steps: [
-			'Put a pan on the fire',
-			'Crack the eggs on it',
-			'Wait, put them out',
-			'Add some salt on it',
+			'Kill the chicken and prepare it',
+			'Wash it and put it in a pot and add salt',
+			'Lit fire and put the pot on it',
+			'Wait until it almost cook and add the onion and oil',
 		],
 		id: 1596168522409,
 	},
@@ -59,13 +59,14 @@ const renderCard = () => {
 				<h1>${recipes[i].title}</h1>
 				<div><img src="${recipes[i].picture}"></div>
 				<ul>
-					<li>${recipes[i].timing}</li>
-					<li>${recipes[i].difficulty}</li>
+					<li>Timing: ${recipes[i].timing}min</li>
+					<li>Difficulty: ${recipes[i].difficulty}</li>
 				</ul>
 				<button type="button" class="more-button">More info</button>
 			</div>
 			`;
 			console.log(myHTML);
+
 			// put it in the DOM
 			container.insertAdjacentHTML('beforeend', myHTML);
 		
@@ -75,44 +76,55 @@ const renderCard = () => {
 const innerModal = document.querySelector('.inner-modal');
 const outerModal = document.querySelector('.outer-modal');
 const moreButton = document.querySelectorAll('.more-button');
-const handleClick = (event) => {
-	if (event.target.matches("button.more-info")) {
+
+
+const openModal = (recipe) => {
 		for (let i = 0; i < recipes.length; i++) {
-			outerModal.classList.add('open');
 			innerModal.innerHTML = `
 			<div>
-				<h1><p>by</p></h1>
-				<im src="">
+				<h1>${recipes[i].title}<p>by ${recipes[i].author}</p></h1>
+				<im src="${recipes[i].picture}">
 				<ul>
-					<li></li>
-					<li></li>
+					<li>Difficulty: ${recipes[i].difficulty}</li>
+					<li>Timing: ${recipes[i].timing}</li>
 				</ul>
-				<ul>
-					<li>
+				<ul class="navigation">
+					<li>Ingredients:
 						<ul>
-							<li></li>
-							<li></li>
-							<li></li>
+							<li>${recipes[i].ingredients[0]}</li>
+							<li>${recipes[i].ingredients[1]}</li>
+							<li>${recipes[i].ingredients[2]}</li>
 						</ul>
 					</li>
-					<li>
+					<li>Steps:
 						<ul>
-							<li></li>
-							<li></li>
-							<li></li>
+							<li>${recipes[i].steps[0]}</li>
+							<li>${recipes[i].steps[1]}</li>
+							<li>${recipes[i].steps[2]}</li>
+							<li>${recipes[i].steps[3]}</li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 			`;
 		}
-	}
+		outerModal.classList.add('open');
 
-	
 };
+
+const handleClick = (e) => {
+	if (e.target.matches('button.more-button')) {
+		const parent = e.target.closest('div');
+		const id = Number(parent.dataset.id);
+		const recipe = recipes.find(recipe => recipe.id === id);
+		openModal(recipe);
+	}
+};
+
+
 
 
 
 const generateButton = document.querySelector('button.generate');
 generateButton.addEventListener('click', renderCard);
-moreButton.addEventListener('click', handleClick);
+window.addEventListener('click', handleClick);
