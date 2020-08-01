@@ -44,7 +44,7 @@ const recipes = [
 			'Lit fire and put the pot on it',
 			'Wait until it almost cook and add the onion and oil',
 		],
-		id: 1596168522409,
+		id: 1596168522408,
 	},
 ];
 
@@ -55,7 +55,7 @@ const renderCard = () => {
 	// generate the HTML
 		for (let i = 0; i < recipes.length; i++) {
 			const myHTML = `
-			<div>
+			<div class="parent-element" data-id="${recipes[i].id}">
 				<h1>${recipes[i].title}</h1>
 				<div><img src="${recipes[i].picture}"></div>
 				<ul>
@@ -79,52 +79,66 @@ const moreButton = document.querySelectorAll('.more-button');
 
 
 const openModal = (recipe) => {
-		for (let i = 0; i < recipes.length; i++) {
-			innerModal.innerHTML = `
+	innerModal.innerHTML = `
+	<div>
+		<h1>${recipe.title} by ${recipe.author}</h1>
+		<img src="${recipe.picture}">
+		<ul>
+			<li><b>Difficulty:</b> ${recipe.difficulty}</li>
+			<li><b>Timing:</b> ${recipe.timing}</li>
+		</ul>
+		<div class="navigation-container">
 			<div>
-				<h1>${recipes[i].title}<p>by ${recipes[i].author}</p></h1>
-				<im src="${recipes[i].picture}">
+				<span><b>Ingredients:</b> </span>
 				<ul>
-					<li>Difficulty: ${recipes[i].difficulty}</li>
-					<li>Timing: ${recipes[i].timing}</li>
-				</ul>
-				<ul class="navigation">
-					<li>Ingredients:
-						<ul>
-							<li>${recipes[i].ingredients[0]}</li>
-							<li>${recipes[i].ingredients[1]}</li>
-							<li>${recipes[i].ingredients[2]}</li>
-						</ul>
-					</li>
-					<li>Steps:
-						<ul>
-							<li>${recipes[i].steps[0]}</li>
-							<li>${recipes[i].steps[1]}</li>
-							<li>${recipes[i].steps[2]}</li>
-							<li>${recipes[i].steps[3]}</li>
-						</ul>
-					</li>
+					<li>${recipe.ingredients}</li>
 				</ul>
 			</div>
-			`;
-		}
-		outerModal.classList.add('open');
+			<div>
+				<small><b>Steps:</b> </small>
+				<ul>
+					<li>${recipe.steps}</li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+	`;
+	outerModal.classList.add('open');
 
 };
 
 const handleClick = (e) => {
 	if (e.target.matches('button.more-button')) {
-		const parent = e.target.closest('div');
+		const parent = e.target.closest('div.parent-element');
 		const id = Number(parent.dataset.id);
 		const recipe = recipes.find(recipe => recipe.id === id);
 		openModal(recipe);
 	}
 };
 
-
+const closeModal = (e) => {
+	outerModal.classList.remove('open');
+};
 
 
 
 const generateButton = document.querySelector('button.generate');
 generateButton.addEventListener('click', renderCard);
 window.addEventListener('click', handleClick);
+
+outerModal.addEventListener('click', (e) => {
+	const isOutside = !e.target.closest('.inner-modal');
+    if (isOutside) {
+		closeModal();
+
+	}
+});
+
+window.addEventListener('keydown', (e) => {
+	if (e.key === 'Escape') {
+		closeModal();
+	}
+})
+
+
