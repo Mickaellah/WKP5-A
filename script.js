@@ -49,7 +49,16 @@ const recipes = [
 ];
 
 
+// Grab all the elements that might be useful for this project.
 const container = document.querySelector('.container');
+const innerModal = document.querySelector('.inner-modal');
+const outerModal = document.querySelector('.outer-modal');
+const moreButton = document.querySelectorAll('.more-button');
+const generateButton = document.querySelector('button.generate');
+
+
+// A function which contains the HTML for each card and includes a for loop to loop through the objects.
+
 const renderCard = () => {
 	// check the recipes collection
 	// generate the HTML
@@ -73,10 +82,8 @@ const renderCard = () => {
 		}
 	};
 
-const innerModal = document.querySelector('.inner-modal');
-const outerModal = document.querySelector('.outer-modal');
-const moreButton = document.querySelectorAll('.more-button');
 
+// A function for opening a modal to show each one of the card's information and contains all the HTML for that modal.
 
 const openModal = (recipe) => {
 	innerModal.innerHTML = `
@@ -108,22 +115,26 @@ const openModal = (recipe) => {
 
 };
 
+
+// A function for handling the click in the more info button to show the modal.
+
 const handleClick = (e) => {
 	if (e.target.matches('button.more-button')) {
-		const parent = e.target.closest('div.parent-element');
-		const id = Number(parent.dataset.id);
+		const parentElement = e.target.closest('div.parent-element');
+		const id = Number(parentElement.dataset.id);
 		const recipe = recipes.find(recipe => recipe.id === id);
 		openModal(recipe);
 	}
 };
 
+
+// A function that contains the code for closing the modal which remove the open class in the outer modal.
 const closeModal = (e) => {
 	outerModal.classList.remove('open');
 };
 
 
-
-const generateButton = document.querySelector('button.generate');
+// Event listeners to handle all clicks in the window and also in Escape key.
 generateButton.addEventListener('click', renderCard);
 window.addEventListener('click', handleClick);
 
